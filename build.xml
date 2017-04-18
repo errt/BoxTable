@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="all" name="BoxTable">
+	<property name="version" value="0.1.0"/>
+	<path id="classpath">
+		<fileset dir="dependencies" includes="*.jar"/>
+	</path>
+	<target name="all" description="Creates binary archive as well as source and javadoc JARs" depends="clean,jar,source,javadoc"/>
+	<target name="clean" description="Removes old files">
+		<delete>
+			<fileset dir="." includes="*.jar"/>
+		</delete>
+	</target>
+	<target name="jar" description="Creates binary JAR archive">
+		<delete dir="bin"/>
+		<mkdir dir="bin" />
+		<javac srcdir="src" destdir="bin" classpathref="classpath" includeantruntime="false" debug="true" debuglevel="lines,vars,source" source="1.8" target="1.8"/>
+		<jar destfile="BoxTable-${version}.jar">
+			<fileset dir="bin"/>
+			<metainf file="LICENSE"/>
+		</jar>
+	</target>
+	<target name="source" description="Creates source archive">
+		<jar destfile="BoxTable-${version}-sources.jar">
+			<fileset dir="src"/>
+			<metainf file="LICENSE"/>
+		</jar>
+	</target>
+	<target name="javadoc" description="Creates javadoc archive">
+		<delete dir="javadoc"/>
+		<mkdir dir="javadoc" />
+		<javadoc sourcepath="src" classpathref="classpath" destdir="javadoc"/>
+		<jar destfile="BoxTable-${version}-javadoc.jar">
+			<fileset dir="javadoc"/>
+			<metainf file="LICENSE"/>
+		</jar>
+	</target>
+</project>
