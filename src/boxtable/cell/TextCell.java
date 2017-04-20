@@ -43,15 +43,6 @@ public class TextCell extends Cell {
 	/** Maximal font size for rendering the text in this cell */
 	private float maxFontSize = -1;
 
-	/** Minimal spacing between the top border of the cell and the text */
-	private float topPadding = 0;
-	/** Minimal spacing between the left border of the cell and the text */
-	private float leftPadding = 1;
-	/** Minimal spacing between the right border of the cell and the text */
-	private float rightPadding = 1;
-	/** Minimal spacing between the bottom border of the cell and the text */
-	private float bottomPadding = 0;
-
 	/** Lay out text with equal width for each part */
 	private boolean equallySpaced = false;
 
@@ -64,7 +55,10 @@ public class TextCell extends Cell {
 	/**
 	 * Creates an empty TextCell
 	 */
-	public TextCell() {}
+	public TextCell() {
+		leftPadding = 1;
+		rightPadding = 1;
+	}
 
 	/**
 	 * Creates a TextCell with a given text
@@ -73,6 +67,7 @@ public class TextCell extends Cell {
 	 *            The text for this cell
 	 */
 	public TextCell(final String text) {
+		this();
 		addText(new Text(text));
 	}
 
@@ -89,6 +84,7 @@ public class TextCell extends Cell {
 	 *            The maximal font size for this cell's text
 	 */
 	public TextCell(final String text, final PDFont font, final float minFontSize, final float maxFontSize) {
+		this();
 		this.minFontSize = minFontSize;
 		this.maxFontSize = maxFontSize;
 		this.font = font;
@@ -539,27 +535,6 @@ public class TextCell extends Cell {
 	 */
 	public TextCell setMinFontSize(final float minFontSize) {
 		this.minFontSize = minFontSize;
-		return this;
-	}
-
-	/**
-	 * Sets the minimum space between the text and the respective borders
-	 * 
-	 * @param top
-	 *            The minimum space between the text and the top border
-	 * @param left
-	 *            The minimum space between the text and the left border
-	 * @param right
-	 *            The minimum space between the text and the right border
-	 * @param bottom
-	 *            The minimum space between the text and the bottom border
-	 * @return This TextCell, for a fluent interface
-	 */
-	public TextCell setPadding(final float top, final float left, final float right, final float bottom) {
-		topPadding = top;
-		leftPadding = left;
-		rightPadding = right;
-		bottomPadding = bottom;
 		return this;
 	}
 }

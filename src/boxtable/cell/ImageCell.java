@@ -55,21 +55,26 @@ public class ImageCell extends Cell {
 			throws IOException {
 		final BufferedImage image = ImageIO.read(file);
 
+		float contentWidth = width - (leftBorder + rightBorder) / 2 - leftPadding - rightPadding;
+		float contentHeight = height - (topBorder + bottomBorder) / 2 - topPadding - bottomPadding;
+
 		float imgWidth = image.getWidth();
 		float imgHeight = image.getHeight();
 		final float ratio = imgWidth / imgHeight;
-		if (imgWidth > width) {
-			imgWidth = width;
+		if (imgWidth > contentWidth) {
+			imgWidth = contentWidth;
 			imgHeight = 1 / ratio * imgWidth;
 		}
-		if (imgHeight > height) {
-			imgHeight = height;
+		if (imgHeight > contentHeight) {
+			imgHeight = contentHeight;
 			imgWidth = ratio * imgHeight;
 		}
 
 		super.render(document, stream, left + (width - imgWidth) * hAlign, top - (height - imgHeight) * vAlign, imgWidth, imgHeight);
 
 		final PDImageXObject imageObject = JPEGFactory.createFromImage(document, image);
-		stream.drawImage(imageObject, left + (width - imgWidth) * hAlign, top - height + (height - imgHeight) * (1 - vAlign), imgWidth, imgHeight);
+		stream.drawImage(imageObject, left + (width - imgWidth) * hAlign + leftBorder / 2 + leftPadding,
+				top - height + (height - imgHeight) * (1 - vAlign) - topBorder / 2 - topPadding,
+				imgWidth, imgHeight);
 	}
 }

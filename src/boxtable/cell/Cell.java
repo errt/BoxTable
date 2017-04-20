@@ -41,6 +41,15 @@ public class Cell extends TableEventSource {
 	/** Minimal height of this cell */
 	protected float minHeight = 0;
 
+	/** Minimal spacing between the top border of the cell and the cell's content */
+	protected float topPadding = 0;
+	/** Minimal spacing between the left border of the cell and the cell's content */
+	protected float leftPadding = 0;
+	/** Minimal spacing between the right border of the cell and the cell's content */
+	protected float rightPadding = 0;
+	/** Minimal spacing between the bottom border of the cell and the cell's content */
+	protected float bottomPadding = 0;
+
 	/** Horizontal alignment multiplier of this cell's content */
 	protected float hAlign = -1;
 	/** Vertical alignment multiplier of this cell's content */
@@ -223,6 +232,27 @@ public class Cell extends TableEventSource {
 	 */
 	public Cell setMinWidth(final float minWidth) {
 		this.minWidth = minWidth;
+		return this;
+	}
+
+	/**
+	 * Sets the minimum space between the content and the respective borders
+	 * 
+	 * @param top
+	 *            The minimum space between the content and the top border
+	 * @param left
+	 *            The minimum space between the content and the left border
+	 * @param right
+	 *            The minimum space between the content and the right border
+	 * @param bottom
+	 *            The minimum space between the content and the bottom border
+	 * @return This Cell, for a fluent interface
+	 */
+	public Cell setPadding(final float top, final float left, final float right, final float bottom) {
+		topPadding = top;
+		leftPadding = left;
+		rightPadding = right;
+		bottomPadding = bottom;
 		return this;
 	}
 

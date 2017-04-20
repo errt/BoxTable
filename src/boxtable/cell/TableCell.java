@@ -48,7 +48,8 @@ public class TableCell extends Cell {
 	 */
 	@Override
 	public float getHeight(final float width) throws IOException {
-		return table.getHeight(width);
+		float contentWidth = width - (leftBorder + rightBorder) / 2 - leftPadding - rightPadding;
+		return table.getHeight(contentWidth) + (topBorder + bottomBorder) / 2 + topPadding + bottomPadding;
 	}
 
 	/*
@@ -59,6 +60,7 @@ public class TableCell extends Cell {
 	@Override
 	public void render(final PDDocument document, final PDPageContentStream stream, final float left, final float top, final float width, final float height)
 			throws IOException {
-		table.renderRows(document, stream, 0, table.getNumRows(), width, left, top);
+		float contentWidth = width - (leftBorder + rightBorder) / 2 - leftPadding - rightPadding;
+		table.renderRows(document, stream, 0, table.getNumRows(), contentWidth, left + leftBorder / 2 + leftPadding, top + topBorder / 2 + topPadding);
 	}
 }
