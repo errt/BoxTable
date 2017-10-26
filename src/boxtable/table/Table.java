@@ -224,6 +224,20 @@ public class Table extends TableEventSource {
 	}
 
 	/**
+	 * Returns a new Table that is identical to the old one, but without contents or event handlers.
+	 * 
+	 * @return A new table with the same columns and appearance
+	 */
+	public Table duplicate() {
+		Table result = new Table();
+		result.columns.addAll(columns);
+		result.filler = filler;
+		result.numHeaderRows = numHeaderRows;
+		result.setBorder(getTopBorder(), getLeftBorder(), getRightBorder(), getBottomBorder());
+		return result;
+	}
+
+	/**
 	 * Returns the widths for a column
 	 * 
 	 * @param index
